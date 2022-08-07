@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../styles/forms.css';
 import { FaSave, FaEdit } from "react-icons/fa";
 
 class ContactInformation extends Component {
@@ -46,7 +45,6 @@ class ContactInformation extends Component {
             githubUrl: '',
             linkedinUrl: '',
         });
-        console.log(this.state.contactInfo);
     };
 
     handleEdit() {
