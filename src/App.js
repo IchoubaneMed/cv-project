@@ -1,4 +1,5 @@
 import ContactInformation from "./components/ContactInformation";
+import "./styles/global.css"
 
 function App() {
   return (
