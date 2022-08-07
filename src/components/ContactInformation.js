@@ -14,7 +14,8 @@ class ContactInformation extends Component {
 
             contactInfo: [],
         };
-
+        
+        this.handleEdit = this.handleEdit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -28,7 +29,7 @@ class ContactInformation extends Component {
     handleSubmit(event) {
         event.preventDefault();
         this.setState({
-            contactInfo: [...this.state.contactInfo, 
+            contactInfo: [ 
                              this.state.fullName, 
                              this.state.email, 
                              this.state.phoneNumber, 
@@ -44,9 +45,21 @@ class ContactInformation extends Component {
             linkedinUrl: '',
         });
         console.log(this.state.contactInfo);
+    };
+
+    handleEdit() {
+        this.setState({
+            fullName: this.state.contactInfo[0],
+            email: this.state.contactInfo[1],
+            phoneNumber: this.state.contactInfo[2],
+            website: this.state.contactInfo[3],
+            githubUrl: this.state.contactInfo[4],
+            linkedinUrl: this.state.contactInfo[5],
+        });
     }
 
     render() {
+        const contactInfo = this.state.contactInfo.filter(elem => elem != "");
         return(
             <div>
                 <form onSubmit={this.handleSubmit}>
@@ -63,10 +76,12 @@ class ContactInformation extends Component {
                 <label htmlFor="linkedinUrl">Linkedin URL</label>
                 <input type="text" name="linkedinUrl" id="linkedinUrl" placeholder="linkedinUrl" onChange={this.handleChange} value={this.state.linkedinUrl}/>
                 <button type="submit">Add</button>
+
+                <button type="button" onClick={this.handleEdit}>Edit</button>
                 </form>
 
                 <ul>
-                    {this.state.contactInfo.map((item, index) => <li key={index}>{item}</li>)}
+                    {contactInfo.map((item, index) => <li key={index}>{item}</li>)}
                 </ul>
             </div>
 
