@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../styles/forms.css';
+import { FaSave, FaEdit } from "react-icons/fa";
 
 class ContactInformation extends Component {
     constructor() {
@@ -60,7 +61,7 @@ class ContactInformation extends Component {
     }
 
     render() {
-        const contactInfo = this.state.contactInfo.filter(elem => elem != "");
+        const contactInfo = this.state.contactInfo.filter(elem => elem !== "");
         return(
             <div className="formSection">
                 <h1>Contact Information</h1>
@@ -79,8 +80,8 @@ class ContactInformation extends Component {
                 <input type="text" name="linkedinUrl" id="linkedinUrl" placeholder="linkedinUrl" onChange={this.handleChange} value={this.state.linkedinUrl}/>
                 
                 <div className="div-btn">
-                    <button type="submit">Add</button>
-                    <button type="button" onClick={this.handleEdit}>Edit</button>
+                    <button type="submit"><FaSave /> Add</button>
+                    <button type="button" onClick={this.handleEdit}><FaEdit /> Edit</button>
                 </div>
                 
                 </form>
