@@ -61,7 +61,8 @@ class ContactInformation extends Component {
     render() {
         const contactInfo = this.state.contactInfo.filter(elem => elem != "");
         return(
-            <div>
+            <div className="formSection">
+                <h1>Contact Information</h1>
                 <form onSubmit={this.handleSubmit}>
                 <label htmlFor="fullName">Full name</label>
                 <input type="text" name="fullName" id="fullName" placeholder="fullName" onChange={this.handleChange} value={this.state.fullName} />
