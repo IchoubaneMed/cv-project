@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../styles/forms.css';
 
 class ContactInformation extends Component {
     constructor() {
