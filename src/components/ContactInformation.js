@@ -77,9 +77,12 @@ class ContactInformation extends Component {
                 <input type="text" name="githubUrl" id="githubUrl" placeholder="githubUrl" onChange={this.handleChange} value={this.state.githubUrl}/>
                 <label htmlFor="linkedinUrl">Linkedin URL</label>
                 <input type="text" name="linkedinUrl" id="linkedinUrl" placeholder="linkedinUrl" onChange={this.handleChange} value={this.state.linkedinUrl}/>
-                <button type="submit">Add</button>
-
-                <button type="button" onClick={this.handleEdit}>Edit</button>
+                
+                <div className="div-btn">
+                    <button type="submit">Add</button>
+                    <button type="button" onClick={this.handleEdit}>Edit</button>
+                </div>
+                
                 </form>
 
                 <ul>
