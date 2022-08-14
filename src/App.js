@@ -3,6 +3,7 @@ import "./styles/global.css"
 import './styles/forms.css';
 import SummaryStatement from "./components/SummaryStatement";
 import WorkExperience from "./components/WorkExperience";
+import Education from "./components/Education";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <ContactInformation />
       <SummaryStatement />
       <WorkExperience />
+      <Education />
     </div>
   );
 }
