@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FaSave, FaEdit } from "react-icons/fa";
+import { IoMdContact } from "react-icons/io";
 
 class ContactInformation extends Component {
     constructor() {
@@ -62,7 +63,7 @@ class ContactInformation extends Component {
         const contactInfo = this.state.contactInfo.filter(elem => elem !== "");
         return(
             <div className="formSection">
-                <h1>Contact Information</h1>
+                <h1>Contact Information <IoMdContact /></h1>
                 <form onSubmit={this.handleSubmit}>
                 <label htmlFor="fullName">Full name</label>
                 <input type="text" name="fullName" id="fullName" placeholder="fullName" onChange={this.handleChange} value={this.state.fullName} />

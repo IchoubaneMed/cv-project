@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { FaSave, FaEdit } from "react-icons/fa";
+import { MdSummarize } from "react-icons/md";
 
 class SummaryStatement extends Component {
     constructor() {
@@ -38,7 +39,7 @@ class SummaryStatement extends Component {
     render() {
         return(
             <div className="formSection">
-                <h1>Summary Statement</h1>
+                <h1>Summary Statement <MdSummarize /></h1>
                 <form onSubmit={this.handleSubmit}>
                     <textarea onChange={this.handleChange} value={this.state.text}></textarea>
 

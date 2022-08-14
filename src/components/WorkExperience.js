@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { FaSave, FaEdit } from "react-icons/fa";
+import { MdWork } from "react-icons/md";
 
 class WorkExperience extends Component {
     constructor() {
@@ -74,7 +75,7 @@ class WorkExperience extends Component {
     render() {
         return(
             <div className="formSection">
-                <h1>Work Experience</h1>
+                <h1>Work Experience <MdWork /></h1>
                 <form onSubmit={this.handleSubmit}>
                     <label htmlFor="jobTitle">Job title:</label>
                     <input type="text" id="jobTitle" name="job_title" value={this.state.job_title} onChange={this.handleChange}/>

@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { FaSave, FaEdit } from "react-icons/fa";
+import { AiFillSafetyCertificate } from "react-icons/ai";
+
 
 class Certifications extends Component {
     constructor(props) {
@@ -51,7 +53,7 @@ class Certifications extends Component {
     render() {
         return(
             <div className="formSection">
-                <h1>Certifications</h1>
+                <h1>Certifications <AiFillSafetyCertificate /></h1>
                 <form onSubmit={this.handleSubmit}>
                     <label htmlFor="title">Title</label>
                     <input type="text" id="title" value={this.state.title} onChange={this.handleChange}/>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import { FaSave, FaEdit } from "react-icons/fa";
+import { FaSave, FaEdit, FaUniversity } from "react-icons/fa";
 
 class Education extends Component {
     constructor(props) {
@@ -67,7 +67,7 @@ class Education extends Component {
     render() {
         return(
             <div className="formSection">
-                <h1>Education</h1>
+                <h1>Education <FaUniversity /></h1>
                 <form onSubmit={this.handleSubmit}>
                     <label htmlFor="degree">Degree</label>
                     <input type="text" id="degree" name="degree_name" value={this.state.degree_name} onChange={this.handleChange}/>

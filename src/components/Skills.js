@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { FaSave, FaEdit } from "react-icons/fa";
+import { GiBattery75 } from "react-icons/gi";
+
 
 class Skills extends Component {
     constructor(props) {
@@ -47,7 +49,7 @@ class Skills extends Component {
     render() {
         return(
             <div className="formSection">
-                <h1>Sills</h1>
+                <h1>Sills <GiBattery75 /></h1>
                 <form onSubmit={this.handleSubmit}>
                     <label htmlFor="exp">Expert</label>
                     <input type="text" id="exp" name="expert" placeholder="Java, Python, C++, React, JavaScript, SQL, Git" value={this.state.expert} onChange={this.handleChange}/>
