@@ -26,6 +26,7 @@ textarea {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: bold;
     border: 0;
+    resize: none;
 }
 
 .formSection {
