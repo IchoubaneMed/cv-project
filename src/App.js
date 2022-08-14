@@ -3,8 +3,10 @@ import "./styles/global.css"
 
 function App() {
   return (
-    <div>
-      <Form />   
+    <div className="cv-wrapper">
+      <div className="cv-form">
+        <Form />
+      </div>   
     </div>
   );
 }
