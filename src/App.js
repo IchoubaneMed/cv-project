@@ -5,6 +5,7 @@ import SummaryStatement from "./components/SummaryStatement";
 import WorkExperience from "./components/WorkExperience";
 import Education from "./components/Education";
 import Skills from "./components/Skills";
+import Certifications from "./components/Certifications";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <WorkExperience />
       <Education />
       <Skills />
+      <Certifications />
     </div>
   );
 }
