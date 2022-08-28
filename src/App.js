@@ -1,6 +1,7 @@
 import Form from './components/Form'
 import Header from './components/Header'
 import "./styles/global.css"
+import Resume from './components/Resume';
 
 function App() {
   return (
@@ -10,7 +11,10 @@ function App() {
       </div>
       <div className="cv-form">
         <Form />
-      </div>   
+      </div>
+      <div className="resume">
+        <Resume />
+      </div>
     </div>
   );
 }
