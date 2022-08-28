@@ -8,6 +8,8 @@ const initialState = {
     website: '',
     githubUrl: '',
     linkedinUrl: '',
+
+    statement: '',
 }
 
 const FULLNAME = 'FULLNAME';
@@ -16,6 +18,8 @@ const PHONENUMBER = 'PHONENUMBER';
 const WEBSITE = 'WEBSITE';
 const GITHUBURL = 'GITHUBURL';
 const LINKEDINURL = 'LINKEDINURL';
+
+const STATEMENT = 'STATEMENT';
 
 const contactInformationReducer = (state = initialState, action) => {
     switch(action.type) {
@@ -54,9 +58,20 @@ const contactInformationReducer = (state = initialState, action) => {
     }
 }
 
+const summaryStatementReducer = (state = initialState, action) => {
+    switch(action.type) {
+        case STATEMENT:
+            return {
+                ...state,
+                statement: action.statement,
+            }
+        default:
+            return state;
+    }
+}
 
 const store = configureStore({
-    reducer: {contactInformationReducer},
+    reducer: {contactInformationReducer, summaryStatementReducer},
 })
 
 export default store;
