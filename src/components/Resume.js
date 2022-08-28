@@ -14,23 +14,30 @@ class Resume extends Component {
         const linkedin = this.props.linkedinUrl.split("").splice(12).join("");
         return (
             <div className="resume-container">
-                <div className="resume-name">
-                    <h1>{this.props.fullName}</h1>
+                <div className="resume-contactInfo">
+                    <div className="resume-name">
+                        <h1>{this.props.fullName}</h1>
+                    </div>
+                    <div className="resume-email-phone">
+                        <h3>{this.props.email}</h3>
+                        <h3>{this.props.phoneNumber}</h3>
+                    </div>
+                    <div className="resume-links">
+                        <div>
+                            <a href={this.props.website} target="_blank" rel="noreferrer">{portfolio}</a>
+                        </div>
+                        <div>
+                            <a href={this.props.githubUrl} target="_blank" rel="noreferrer">{github}</a>
+                        </div>
+                        <div>
+                            <a href={this.props.linkedinUrl} target="_blank" rel="noreferrer">{linkedin}</a>
+                        </div>
+                    </div>
                 </div>
-                <div className="resume-email-phone">
-                    <h3>{this.props.email}</h3>
-                    <h3>{this.props.phoneNumber}</h3>
-                </div>
-                <div className="resume-links">
-                    <div>
-                        <a href={this.props.website} target="_blank" rel="noreferrer">{portfolio}</a>
-                    </div>
-                    <div>
-                        <a href={this.props.githubUrl} target="_blank" rel="noreferrer">{github}</a>
-                    </div>
-                    <div>
-                        <a href={this.props.linkedinUrl} target="_blank" rel="noreferrer">{linkedin}</a>
-                    </div>
+
+                <div className="resume-summaryState">
+                    <h3>Summary Statement</h3>
+                    <p>{this.props.statement}</p>
                 </div>
 
             </div>
@@ -46,6 +53,8 @@ const mapStateToProps = (state) => {
         website: state.contactInformationReducer.website,
         githubUrl: state.contactInformationReducer.githubUrl,
         linkedinUrl: state.contactInformationReducer.linkedinUrl,
+
+        statement: state.summaryStatementReducer.statement,
     }
 }
 
