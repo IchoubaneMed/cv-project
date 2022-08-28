@@ -24,3 +24,16 @@
 .resume-links > div {
     margin-left: 15px;
 }
+
+
+.resume-summaryState {
+    margin-top: 10px;
+}
+
+.resume-summaryState > h3 {
+    text-decoration: underline;
+}
+
+.resume-summaryState > p {
+    margin-top: 10px;
+}
