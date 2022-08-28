@@ -1,0 +1,26 @@
+.resume-container {
+    padding: 20px 30px;
+}
+
+.resume-name {
+    display: flex;
+    justify-content: center;
+}
+
+.resume-email-phone {
+    display: flex;
+    justify-content: center;
+}
+
+.resume-email-phone > h3 {
+    margin-left: 15px;
+} 
+
+.resume-links {
+    display: flex;
+    justify-content: center;
+}
+
+.resume-links > div {
+    margin-left: 15px;
+}
