@@ -5,6 +5,7 @@ import { FaSave, FaEdit } from "react-icons/fa";
 import { AiFillSafetyCertificate } from "react-icons/ai";
 
 
+
 class Certifications extends Component {
     constructor(props) {
         super(props)
@@ -73,6 +74,8 @@ class Certifications extends Component {
                         <button type="button" onClick={this.handleEdit}><FaEdit /> Edit</button>
                     </div>
                 </form>
+
+                
             </div>
         );
     }

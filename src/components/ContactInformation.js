@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { FaSave, FaEdit } from "react-icons/fa";
 import { IoMdContact } from "react-icons/io";
+import '../styles/global.css'
+
+import { connect } from 'react-redux';
 
 class ContactInformation extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             fullName: '',
@@ -13,14 +16,13 @@ class ContactInformation extends Component {
             website: '',
             githubUrl: '',
             linkedinUrl: '',
-
-            contactInfo: [],
         };
         
         this.handleEdit = this.handleEdit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
 
     handleChange(event) {
         this.setState({
@@ -29,16 +31,14 @@ class ContactInformation extends Component {
     };
 
     handleSubmit(event) {
-        event.preventDefault();
+        event.preventDefault()
+        this.props.fullName_action(this.state.fullName);
+        this.props.email_action(this.state.email);
+        this.props.phoneNumber_action(this.state.phoneNumber);
+        this.props.website_action(this.state.website);
+        this.props.githubUrl_action(this.state.githubUrl);
+        this.props.linkedinUrl_action(this.state.linkedinUrl);
         this.setState({
-            contactInfo: [ 
-                             this.state.fullName, 
-                             this.state.email, 
-                             this.state.phoneNumber, 
-                             this.state.website, 
-                             this.state.githubUrl, 
-                             this.state.linkedinUrl
-                         ],
             fullName: '',
             email: '',
             phoneNumber: '',
@@ -50,17 +50,17 @@ class ContactInformation extends Component {
 
     handleEdit() {
         this.setState({
-            fullName: this.state.contactInfo[0],
-            email: this.state.contactInfo[1],
-            phoneNumber: this.state.contactInfo[2],
-            website: this.state.contactInfo[3],
-            githubUrl: this.state.contactInfo[4],
-            linkedinUrl: this.state.contactInfo[5],
+            fullName: this.props.fullName_data,
+            email: this.props.email_data,
+            phoneNumber: this.props.phoneNumber_data,
+            website: this.props.website_data,
+            githubUrl: this.props.githubUrl_data,
+            linkedinUrl: this.props.linkedinUrl_data,
         });
     }
 
     render() {
-        const contactInfo = this.state.contactInfo.filter(elem => elem !== "");
+        console.log(this.props.fullName_data);
         return(
             <div className="formSection">
                 <h1>Contact Information <IoMdContact /></h1>
@@ -82,12 +82,7 @@ class ContactInformation extends Component {
                     <button type="submit"><FaSave /> Add</button>
                     <button type="button" onClick={this.handleEdit}><FaEdit /> Edit</button>
                 </div>
-                
                 </form>
-
-                <ul>
-                    {contactInfo.map((item, index) => <li key={index}>{item}</li>)}
-                </ul>
             </div>
 
             
@@ -95,4 +90,26 @@ class ContactInformation extends Component {
     }
 }
 
-export default ContactInformation;
+const mapStateToProps = (state) => {
+    return {
+        fullName_data: state.contactInformationReducer.fullName,
+        email_data: state.contactInformationReducer.email,
+        phoneNumber_data: state.contactInformationReducer.phoneNumber,
+        website_data: state.contactInformationReducer.website,
+        githubUrl_data: state.contactInformationReducer.githubUrl,
+        linkedinUrl_data: state.contactInformationReducer.linkedinUrl,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fullName_action: (fullName) => dispatch({type: 'FULLNAME', fullName}),
+        email_action: (email) => dispatch({type: 'EMAIL', email}),
+        phoneNumber_action: (phoneNumber) => dispatch({type: 'PHONENUMBER', phoneNumber}),
+        website_action: (website) => dispatch({type: 'WEBSITE', website}),
+        githubUrl_action: (githubUrl) => dispatch({type: 'GITHUBURL', githubUrl}),
+        linkedinUrl_action: (linkedinUrl) => dispatch({type: 'LINKEDINURL', linkedinUrl}),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactInformation);
