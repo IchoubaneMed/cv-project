@@ -60,7 +60,6 @@ class ContactInformation extends Component {
     }
 
     render() {
-        console.log(this.props.fullName_data);
         return(
             <div className="formSection">
                 <h1>Contact Information <IoMdContact /></h1>
