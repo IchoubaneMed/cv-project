@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import { FaSave, FaEdit } from "react-icons/fa";
 import { MdSummarize } from "react-icons/md";
 
+import { connect } from 'react-redux';
+
 class SummaryStatement extends Component {
     constructor() {
         super()
 
         this.state = {
             text: '',
-            statement: [],
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -24,15 +25,15 @@ class SummaryStatement extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        this.props.addStatement(this.state.text)
         this.setState({
-            statement: [this.state.text],
             text: '',
         }); 
     };
 
     handleEdit() {
         this.setState({
-            text: this.state.statement[0],
+            text: this.props.statement,
         });
     };
 
@@ -48,11 +49,21 @@ class SummaryStatement extends Component {
                         <button type="button" onClick={this.handleEdit}><FaEdit /> Edit</button>
                     </div>
                 </form>
-
-                <p>{this.state.statement[0]}</p>
             </div>
         );
     }
 } 
 
-export default SummaryStatement;
+const mapStateToProps = (state) => {
+    return {
+        statement: state.summaryStatementReducer.statement,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addStatement: (statement) => dispatch({type: 'STATEMENT', statement}),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SummaryStatement);
