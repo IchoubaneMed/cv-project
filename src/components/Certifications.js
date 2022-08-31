@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FaSave, FaEdit } from "react-icons/fa";
 import { AiFillSafetyCertificate } from "react-icons/ai";
 
-
+import { connect } from 'react-redux';
 
 class Certifications extends Component {
     constructor(props) {
@@ -12,7 +12,6 @@ class Certifications extends Component {
         this.state = {
             title: '',
             date: new Date(),
-            certifications: [],
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleChangeDate = this.handleChangeDate.bind(this);
@@ -34,11 +33,9 @@ class Certifications extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        this.props.title_action(this.state.title);
+        this.props.date_action(this.state.date.toString());
         this.setState({
-            certifications: [
-                this.state.title,
-                this.state.date,
-            ],
             title: '',
             date: new Date(),
         });
@@ -46,8 +43,8 @@ class Certifications extends Component {
 
     handleEdit() {
         this.setState({
-            title: this.state.certifications[0],
-            date: this.state.certifications[1],
+            title: this.props.title,
+            date: Date.parse(this.props.date),
         });
     }
 
@@ -81,4 +78,18 @@ class Certifications extends Component {
     }
 }
 
-export default Certifications;
+const mapStateToProps = (state) => {
+    return {
+        title: state.certificationsReducer.title,
+        date: state.certificationsReducer.date,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        title_action: (title) => dispatch({type: 'TITLE', title}),
+        date_action: (date) => dispatch({type: 'DATE', date}),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Certifications);
