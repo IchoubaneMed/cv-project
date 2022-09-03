@@ -1,3 +1,26 @@
+.resume-grid {
+    display: grid;
+    grid-template-rows: 40px 1fr;
+    
+}
+
+.resume-print {
+    margin: 0 30px;
+}
+
+.btnPrint {
+    width: 100%;
+    height: 100%;
+    margin-top: 5px;
+    background-color: #74b9ff;
+    transition: all .2s ease-in;
+}
+
+.btnPrint:hover {
+    background-color: #c0392b;
+    color: #ecf0f1;
+}
+
 .resume-container {
     padding: 20px 30px;
 }
@@ -91,4 +114,6 @@
 .resume-certifications span {
     margin-left: 5px;
 }
+
+
 
