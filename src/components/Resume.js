@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../styles/resume.css';
+import { RiStarSFill, RiStarSLine } from "react-icons/ri";
 
 class Resume extends Component {
     constructor(props) {
@@ -26,10 +27,10 @@ class Resume extends Component {
         const currentDate = new Date();
         const currentMonth = months[currentDate.toString().split(" ")[1]]
         const currentYear = currentDate.toString().split(" ")[3]
-        
+
         const userDate = date.split(" ");
 
-        if(months[userDate[1]] === currentMonth && userDate[3] === currentYear) {
+        if (months[userDate[1]] === currentMonth && userDate[3] === currentYear) {
             return "Present";
         } else if (date === '') {
             return "";
@@ -84,6 +85,19 @@ class Resume extends Component {
                     <p>{this.props.university_name}</p>
                     <p className="inline italic">{this.handleDate(this.props.from_education)}</p>-<p className="inline italic">{this.handleDate(this.props.to_education)}</p>
                 </div>
+
+                <div className="resume-skills">
+                    <h3 className="underline">Skills</h3>
+                    <div>
+                        <h4 className="inline flex">Expert ( <RiStarSFill /><RiStarSFill /><RiStarSFill /><RiStarSFill /><RiStarSFill /> ): </h4><p className="inline">{this.props.expert}</p>
+                    </div>
+                    <div>
+                        <h4 className="inline flex">Advanced ( <RiStarSFill /><RiStarSFill /><RiStarSFill /><RiStarSFill /><RiStarSLine /> ): </h4><p className="inline">{this.props.advanced}</p>
+                    </div>
+                    <div>
+                        <h4 className="inline flex">Familiar ( <RiStarSFill /><RiStarSFill /><RiStarSFill /><RiStarSLine /><RiStarSLine /> ): </h4><p className="inline">{this.props.familiar}</p>
+                    </div>
+                </div>
             </div>
         );
     }
@@ -111,6 +125,10 @@ const mapStateToProps = (state) => {
         university_name: state.educationReducer.university_name,
         from_education: state.educationReducer.from_education,
         to_education: state.educationReducer.to_education,
+
+        expert: state.skillsReducer.expert,
+        advanced: state.skillsReducer.advanced,
+        familiar: state.skillsReducer.familiar,
     }
 }
 
