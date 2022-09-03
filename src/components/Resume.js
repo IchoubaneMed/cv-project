@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../styles/resume.css';
 import { RiStarSFill, RiStarSLine } from "react-icons/ri";
+import { GoDash } from "react-icons/go";
+
 
 class Resume extends Component {
     constructor(props) {
@@ -98,6 +100,13 @@ class Resume extends Component {
                         <h4 className="inline flex">Familiar ( <RiStarSFill /><RiStarSFill /><RiStarSFill /><RiStarSLine /><RiStarSLine /> ): </h4><p className="inline">{this.props.familiar}</p>
                     </div>
                 </div>
+
+                <div className="resume-certifications">
+                    <h3 className="underline">Certifications</h3>
+
+                    <p className="flex"><GoDash />{this.props.title}, <span className="italic">{this.handleDate(this.props.date)}</span></p>
+
+                </div>
             </div>
         );
     }
@@ -129,6 +138,9 @@ const mapStateToProps = (state) => {
         expert: state.skillsReducer.expert,
         advanced: state.skillsReducer.advanced,
         familiar: state.skillsReducer.familiar,
+
+        title: state.certificationsReducer.title,
+        date: state.certificationsReducer.date,
     }
 }
 
