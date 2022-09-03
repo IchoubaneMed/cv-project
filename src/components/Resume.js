@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import '../styles/resume.css';
 import { RiStarSFill, RiStarSLine } from "react-icons/ri";
 import { GoDash } from "react-icons/go";
+import ReactToPrint from 'react-to-print';
+import { AiFillPrinter } from "react-icons/ai";
 
 
 class Resume extends Component {
@@ -46,66 +48,77 @@ class Resume extends Component {
         const github = this.props.githubUrl.split("").splice(8).join("");
         const linkedin = this.props.linkedinUrl.split("").splice(12).join("");
         return (
-            <div className="resume-container">
-                <div className="resume-contactInfo">
-                    <div className="resume-name">
-                        <h1>{this.props.fullName}</h1>
+            <div className="resume-grid">
+                <div className="resume-print">
+                    <ReactToPrint
+                        trigger={() => {
+                            return <button className="btnPrint"><AiFillPrinter /> Print</button>
+                        }}
+                        content={() => this.componentRef}
+                    />
+                </div>
+
+                <div className="resume-container" ref={el => (this.componentRef = el)}>
+                    <div className="resume-contactInfo">
+                        <div className="resume-name">
+                            <h1>{this.props.fullName}</h1>
+                        </div>
+                        <div className="resume-email-phone">
+                            <h3>{this.props.email}</h3>
+                            <h3>{this.props.phoneNumber}</h3>
+                        </div>
+                        <div className="resume-links">
+                            <div>
+                                <a href={this.props.website} target="_blank" rel="noreferrer">{portfolio}</a>
+                            </div>
+                            <div>
+                                <a href={this.props.githubUrl} target="_blank" rel="noreferrer">{github}</a>
+                            </div>
+                            <div>
+                                <a href={this.props.linkedinUrl} target="_blank" rel="noreferrer">{linkedin}</a>
+                            </div>
+                        </div>
                     </div>
-                    <div className="resume-email-phone">
-                        <h3>{this.props.email}</h3>
-                        <h3>{this.props.phoneNumber}</h3>
+
+                    <div className="resume-summaryState">
+                        <h3 className="underline">Summary Statement</h3>
+                        <p>{this.props.statement}</p>
                     </div>
-                    <div className="resume-links">
+
+                    <div className="resume-workExperience">
+                        <h3 className="underline">Work Experience</h3>
+                        <h4 className="inline">{this.props.job_title}</h4>, <h4 className="inline">{this.props.work_location}</h4>
+                        <p>{this.props.company_name}</p>
+                        <p className="inline italic">{this.handleDate(this.props.from)}</p>-<p className="inline italic">{this.handleDate(this.props.to)}</p>
+                        <p>{this.props.tasks}</p>
+                    </div>
+
+                    <div className="resume-education">
+                        <h3 className="underline">Education</h3>
+                        <h4>{this.props.degree_name}</h4>
+                        <p>{this.props.university_name}</p>
+                        <p className="inline italic">{this.handleDate(this.props.from_education)}</p>-<p className="inline italic">{this.handleDate(this.props.to_education)}</p>
+                    </div>
+
+                    <div className="resume-skills">
+                        <h3 className="underline">Skills</h3>
                         <div>
-                            <a href={this.props.website} target="_blank" rel="noreferrer">{portfolio}</a>
+                            <h4 className="inline flex">Expert ( <RiStarSFill /><RiStarSFill /><RiStarSFill /><RiStarSFill /><RiStarSFill /> ): </h4><p className="inline">{this.props.expert}</p>
                         </div>
                         <div>
-                            <a href={this.props.githubUrl} target="_blank" rel="noreferrer">{github}</a>
+                            <h4 className="inline flex">Advanced ( <RiStarSFill /><RiStarSFill /><RiStarSFill /><RiStarSFill /><RiStarSLine /> ): </h4><p className="inline">{this.props.advanced}</p>
                         </div>
                         <div>
-                            <a href={this.props.linkedinUrl} target="_blank" rel="noreferrer">{linkedin}</a>
+                            <h4 className="inline flex">Familiar ( <RiStarSFill /><RiStarSFill /><RiStarSFill /><RiStarSLine /><RiStarSLine /> ): </h4><p className="inline">{this.props.familiar}</p>
                         </div>
                     </div>
-                </div>
 
-                <div className="resume-summaryState">
-                    <h3 className="underline">Summary Statement</h3>
-                    <p>{this.props.statement}</p>
-                </div>
+                    <div className="resume-certifications">
+                        <h3 className="underline">Certifications</h3>
 
-                <div className="resume-workExperience">
-                    <h3 className="underline">Work Experience</h3>
-                    <h4 className="inline">{this.props.job_title}</h4>, <h4 className="inline">{this.props.work_location}</h4>
-                    <p>{this.props.company_name}</p>
-                    <p className="inline italic">{this.handleDate(this.props.from)}</p>-<p className="inline italic">{this.handleDate(this.props.to)}</p>
-                    <p>{this.props.tasks}</p>
-                </div>
+                        <p className="flex"><GoDash />{this.props.title}, <span className="italic">{this.handleDate(this.props.date)}</span></p>
 
-                <div className="resume-education">
-                    <h3 className="underline">Education</h3>
-                    <h4>{this.props.degree_name}</h4>
-                    <p>{this.props.university_name}</p>
-                    <p className="inline italic">{this.handleDate(this.props.from_education)}</p>-<p className="inline italic">{this.handleDate(this.props.to_education)}</p>
-                </div>
-
-                <div className="resume-skills">
-                    <h3 className="underline">Skills</h3>
-                    <div>
-                        <h4 className="inline flex">Expert ( <RiStarSFill /><RiStarSFill /><RiStarSFill /><RiStarSFill /><RiStarSFill /> ): </h4><p className="inline">{this.props.expert}</p>
                     </div>
-                    <div>
-                        <h4 className="inline flex">Advanced ( <RiStarSFill /><RiStarSFill /><RiStarSFill /><RiStarSFill /><RiStarSLine /> ): </h4><p className="inline">{this.props.advanced}</p>
-                    </div>
-                    <div>
-                        <h4 className="inline flex">Familiar ( <RiStarSFill /><RiStarSFill /><RiStarSFill /><RiStarSLine /><RiStarSLine /> ): </h4><p className="inline">{this.props.familiar}</p>
-                    </div>
-                </div>
-
-                <div className="resume-certifications">
-                    <h3 className="underline">Certifications</h3>
-
-                    <p className="flex"><GoDash />{this.props.title}, <span className="italic">{this.handleDate(this.props.date)}</span></p>
-
                 </div>
             </div>
         );
