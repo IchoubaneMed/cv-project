@@ -14,6 +14,11 @@
     font-style: italic;
 }
 
+.flex {
+    display: inline-flex;
+    align-items: center;
+}
+
 .resume-name {
     display: flex;
     justify-content: center;
@@ -64,6 +69,18 @@
 
 .resume-education > h4, p {
     margin-top: 5px;
+}
+
+.resume-skills {
+    margin-top: 10px;
+}
+
+.resume-skills div {
+    margin-top: 5px;
+}
+
+.resume-skills p {
+    margin-left: 5px;
 }
 
 
