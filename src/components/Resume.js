@@ -72,10 +72,17 @@ class Resume extends Component {
 
                 <div className="resume-workExperience">
                     <h3 className="underline">Work Experience</h3>
-                    <h4 className="inline bold">{this.props.job_title}</h4>, <h4 className="inline bold">{this.props.work_location}</h4>
-                    <h4>{this.props.company_name}</h4>
-                    <h4 className="inline italic">{this.handleDate(this.props.from)}</h4>-<h4 className="inline italic">{this.handleDate(this.props.to)}</h4>
+                    <h4 className="inline">{this.props.job_title}</h4>, <h4 className="inline">{this.props.work_location}</h4>
+                    <p>{this.props.company_name}</p>
+                    <p className="inline italic">{this.handleDate(this.props.from)}</p>-<p className="inline italic">{this.handleDate(this.props.to)}</p>
                     <p>{this.props.tasks}</p>
+                </div>
+
+                <div className="resume-education">
+                    <h3 className="underline">Education</h3>
+                    <h4>{this.props.degree_name}</h4>
+                    <p>{this.props.university_name}</p>
+                    <p className="inline italic">{this.handleDate(this.props.from_education)}</p>-<p className="inline italic">{this.handleDate(this.props.to_education)}</p>
                 </div>
             </div>
         );
@@ -99,6 +106,11 @@ const mapStateToProps = (state) => {
         from: state.workExperienceReducer.from,
         to: state.workExperienceReducer.to,
         tasks: state.workExperienceReducer.tasks,
+
+        degree_name: state.educationReducer.degree_name,
+        university_name: state.educationReducer.university_name,
+        from_education: state.educationReducer.from_education,
+        to_education: state.educationReducer.to_education,
     }
 }
 
