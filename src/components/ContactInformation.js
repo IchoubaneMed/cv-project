@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
 import { FaSave, FaEdit } from "react-icons/fa";
 import { IoMdContact } from "react-icons/io";
 import '../styles/global.css'
@@ -17,7 +19,7 @@ class ContactInformation extends Component {
             githubUrl: '',
             linkedinUrl: '',
         };
-        
+
         this.handleEdit = this.handleEdit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -60,31 +62,36 @@ class ContactInformation extends Component {
     }
 
     render() {
-        return(
+        return (
             <div className="formSection">
                 <h1>Contact Information <IoMdContact /></h1>
                 <form onSubmit={this.handleSubmit}>
-                <label htmlFor="fullName">Full name</label>
-                <input type="text" name="fullName" id="fullName" placeholder="fullName" onChange={this.handleChange} value={this.state.fullName} />
-                <label htmlFor="email">Email</label>
-                <input type="email" name="email" id="email" placeholder="email" onChange={this.handleChange} value={this.state.email}/>
-                <label htmlFor="phoneNumber">Phone number</label>
-                <input type="text" name="phoneNumber" id="phoneNumber" placeholder="phoneNumber" onChange={this.handleChange} value={this.state.phoneNumber}/>
-                <label htmlFor="website">Website</label>
-                <input type="text" name="website" id="website" placeholder="website" onChange={this.handleChange} value={this.state.website}/>
-                <label htmlFor="githubUrl">Github URL</label>
-                <input type="text" name="githubUrl" id="githubUrl" placeholder="githubUrl" onChange={this.handleChange} value={this.state.githubUrl}/>
-                <label htmlFor="linkedinUrl">Linkedin URL</label>
-                <input type="text" name="linkedinUrl" id="linkedinUrl" placeholder="linkedinUrl" onChange={this.handleChange} value={this.state.linkedinUrl}/>
-                
-                <div className="div-btn">
-                    <button type="submit"><FaSave /> Add</button>
-                    <button type="button" onClick={this.handleEdit}><FaEdit /> Edit</button>
-                </div>
+                    <label htmlFor="fullName">Full name</label>
+                    <input type="text" name="fullName" id="fullName" placeholder="fullName" onChange={this.handleChange} value={this.state.fullName} />
+                    <label htmlFor="email">Email</label>
+                    <input type="email" name="email" id="email" placeholder="email" onChange={this.handleChange} value={this.state.email} />
+                    <label htmlFor="phoneNumber">Phone number</label>
+                    {/*<input type="text" name="phoneNumber" id="phoneNumber" placeholder="phoneNumber" onChange={this.handleChange} value={this.state.phoneNumber} />*/}
+                    <PhoneInput
+                        id="phoneNumber"
+                        placeholder="Enter phone number"
+                        value={this.state.phoneNumber}
+                        onChange={phoneNumber => this.setState({phoneNumber})} />
+                    <label htmlFor="website">Website</label>
+                    <input type="text" name="website" id="website" placeholder="website" onChange={this.handleChange} value={this.state.website} />
+                    <label htmlFor="githubUrl">Github URL</label>
+                    <input type="text" name="githubUrl" id="githubUrl" placeholder="githubUrl" onChange={this.handleChange} value={this.state.githubUrl} />
+                    <label htmlFor="linkedinUrl">Linkedin URL</label>
+                    <input type="text" name="linkedinUrl" id="linkedinUrl" placeholder="linkedinUrl" onChange={this.handleChange} value={this.state.linkedinUrl} />
+
+                    <div className="div-btn">
+                        <button type="submit"><FaSave /> Add</button>
+                        <button type="button" onClick={this.handleEdit}><FaEdit /> Edit</button>
+                    </div>
                 </form>
             </div>
 
-            
+
         );
     }
 }
@@ -102,12 +109,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fullName_action: (fullName) => dispatch({type: 'FULLNAME', fullName}),
-        email_action: (email) => dispatch({type: 'EMAIL', email}),
-        phoneNumber_action: (phoneNumber) => dispatch({type: 'PHONENUMBER', phoneNumber}),
-        website_action: (website) => dispatch({type: 'WEBSITE', website}),
-        githubUrl_action: (githubUrl) => dispatch({type: 'GITHUBURL', githubUrl}),
-        linkedinUrl_action: (linkedinUrl) => dispatch({type: 'LINKEDINURL', linkedinUrl}),
+        fullName_action: (fullName) => dispatch({ type: 'FULLNAME', fullName }),
+        email_action: (email) => dispatch({ type: 'EMAIL', email }),
+        phoneNumber_action: (phoneNumber) => dispatch({ type: 'PHONENUMBER', phoneNumber }),
+        website_action: (website) => dispatch({ type: 'WEBSITE', website }),
+        githubUrl_action: (githubUrl) => dispatch({ type: 'GITHUBURL', githubUrl }),
+        linkedinUrl_action: (linkedinUrl) => dispatch({ type: 'LINKEDINURL', linkedinUrl }),
     }
 }
 
