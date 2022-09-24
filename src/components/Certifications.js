@@ -63,7 +63,7 @@ class Certifications extends Component {
     }
 
     handleEdit(id) {
-        const certif = this.props.certificationsArray.filter(item => item.id === id)
+        const certif = this.props.certificationsArray.filter(item => item.id === id);
         this.setState({
             certification: {
                 id: certif[0].id,
@@ -123,7 +123,6 @@ class Certifications extends Component {
 
                     <div className="div-btn2">
                         <button type="submit"><FaSave /> Add</button>
-                        {/*<button type="button" onClick={this.handleEdit}><FaEdit /> Edit</button>*/}
                     </div>
                 </form>
                 <h2>Certifications List</h2>

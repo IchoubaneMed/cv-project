@@ -87,10 +87,16 @@ class Resume extends Component {
 
                     <div className="resume-workExperience">
                         <h3 className="underline">Work Experience</h3>
-                        <h4 className="inline">{this.props.job_title}</h4>, <h4 className="inline">{this.props.work_location}</h4>
-                        <p>{this.props.company_name}</p>
-                        <p className="inline italic">{this.handleDate(this.props.from)}</p>-<p className="inline italic">{this.handleDate(this.props.to)}</p>
-                        <p>{this.props.tasks}</p>
+                        {this.props.work_experience.map(item => {
+                            return (
+                                <div key={item.id}>
+                                    <h4 className="inline">{item.job_title}</h4>, <h4 className="inline">{item.work_location}</h4>
+                                    <p>{item.company_name}</p>
+                                    <p className="inline italic">{this.handleDate(item.from)}</p> -<p className="inline italic">{this.handleDate(item.to)}</p>
+                                    <p>{item.tasks}</p>
+                                </div>
+                            );
+                        })}
                     </div>
 
                     <div className="resume-education">
@@ -142,12 +148,7 @@ const mapStateToProps = (state) => {
 
         statement: state.summaryStatementReducer.statement,
 
-        job_title: state.workExperienceReducer.job_title,
-        company_name: state.workExperienceReducer.company_name,
-        work_location: state.workExperienceReducer.work_location,
-        from: state.workExperienceReducer.from,
-        to: state.workExperienceReducer.to,
-        tasks: state.workExperienceReducer.tasks,
+        work_experience: state.workExperienceReducer.work_experience,
 
         degree_name: state.educationReducer.degree_name,
         university_name: state.educationReducer.university_name,
@@ -158,8 +159,6 @@ const mapStateToProps = (state) => {
         advanced: state.skillsReducer.advanced,
         familiar: state.skillsReducer.familiar,
 
-        //title: state.certificationsReducer.title,
-        //date: state.certificationsReducer.date,
         certifications: state.certificationsReducer.certifications,
     }
 }

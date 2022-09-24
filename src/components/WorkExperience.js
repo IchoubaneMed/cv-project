@@ -3,72 +3,129 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { FaSave, FaEdit } from "react-icons/fa";
 import { MdWork } from "react-icons/md";
-
+import { MdDeleteForever } from "react-icons/md";
+import uniqid from 'uniqid';
 import { connect } from 'react-redux';
 
 class WorkExperience extends Component {
     constructor() {
         super();
         this.state = {
-            job_title: '',
-            company_name: '',
-            work_location: '',
-            from: new Date(),
-            to: new Date(),
-            tasks: '',
+            workExperience: {
+                id: uniqid(),
+                job_title: '',
+                company_name: '',
+                work_location: '',
+                from: new Date(),
+                to: new Date(),
+                tasks: '',
+            },
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleChangeDateFrom = this.handleChangeDateFrom.bind(this);
         this.handleChangeDateTo = this.handleChangeDateTo.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
+        this.handleDate = this.handleDate.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     };
 
     handleChange(event) {
         this.setState({
-            [event.target.name]: event.target.value,
+            workExperience: {
+                ...this.state.workExperience,
+                [event.target.name]: event.target.value,
+                id: uniqid(),
+            },
         });
     }
 
     handleChangeDateFrom(date) {
         this.setState({
-            from: date,
+            workExperience: {
+                ...this.state.workExperience,
+                from: date,
+            },
         });
     };
 
     handleChangeDateTo(date) {
         this.setState({
-            to: date,
+            workExperience: {
+                ...this.state.workExperience,
+                to: date,
+            },
         });
     };
 
     handleSubmit(event) {
         event.preventDefault();
-        this.props.job_title_action(this.state.job_title);
-        this.props.company_name_action(this.state.company_name);
-        this.props.work_location_action(this.state.work_location);
-        this.props.from_action(this.state.from.toString());
-        this.props.to_action(this.state.to.toString());
-        this.props.tasks_action(this.state.tasks);
+        const WE = {
+            id: this.state.workExperience.id,
+            job_title: this.state.workExperience.job_title,
+            company_name: this.state.workExperience.company_name,
+            work_location: this.state.workExperience.work_location,
+            from: this.state.workExperience.from.toString(),
+            to: this.state.workExperience.to.toString(),
+            tasks: this.state.workExperience.tasks,
+        }
         this.setState({
-            job_title: '',
-            company_name: '',
-            work_location: '',
-            from: new Date(),
-            to: new Date(),
-            tasks: '',
+            workExperience: {
+                id: uniqid(),
+                job_title: '',
+                company_name: '',
+                work_location: '',
+                from: new Date(),
+                to: new Date(),
+                tasks: '',
+            },
         });
+        this.props.add_work_experience(WE);
     }
 
-    handleEdit() {
+    handleEdit(id) {
+        const WE = this.props.work_experience_array.filter(item => item.id === id);
         this.setState({
-            job_title: this.props.job_title,
-            company_name: this.props.company_name,
-            work_location: this.props.work_location,
-            from: this.props.from === '' ? new Date() : Date.parse(this.props.from),
-            to: this.props.to === '' ? new Date() : Date.parse(this.props.to),
-            tasks: this.props.tasks,
+            workExperience: {
+                id: WE[0].id,
+                job_title: WE[0].job_title,
+                company_name: WE[0].company_name,
+                work_location: WE[0].work_location,
+                from: Date.parse(WE[0].from),
+                to: Date.parse(WE[0].to),
+                tasks: WE[0].tasks,
+            },
         });
+        this.props.delete_work_experience(id);
+    }
+
+    handleDelete(id) {
+        this.props.delete_work_experience(id);
+    }
+
+    handleDate(date = '') {
+        const months = {
+            Jan: 'January',
+            Feb: 'February',
+            Mar: 'March',
+            Apr: 'April',
+            May: 'May',
+            Jun: 'June',
+            Jul: 'July',
+            Aug: 'August',
+            Sep: 'September',
+            Oct: 'October',
+            Nov: 'November',
+            Dec: 'December',
+        }
+
+        const userDate = date.split(" ");
+
+        if (date === '') {
+            return "";
+        } else {
+            return `${months[userDate[1]]} ${userDate[3]}`;
+        }
     }
 
     render() {
@@ -77,15 +134,15 @@ class WorkExperience extends Component {
                 <h1>Work Experience <MdWork /></h1>
                 <form onSubmit={this.handleSubmit}>
                     <label htmlFor="jobTitle">Job title:</label>
-                    <input type="text" id="jobTitle" name="job_title" value={this.state.job_title} onChange={this.handleChange} />
+                    <input type="text" id="jobTitle" name="job_title" value={this.state.workExperience.job_title} onChange={this.handleChange} />
                     <label htmlFor="companyName">Company name:</label>
-                    <input type="text" id="companyName" name="company_name" value={this.state.company_name} onChange={this.handleChange} />
+                    <input type="text" id="companyName" name="company_name" value={this.state.workExperience.company_name} onChange={this.handleChange} />
                     <label htmlFor="workLocation">Work Location:</label>
-                    <input type="text" id="workLocation" name="work_location" value={this.state.work_location} onChange={this.handleChange} />
+                    <input type="text" id="workLocation" name="work_location" value={this.state.workExperience.work_location} onChange={this.handleChange} />
                     <label>From:</label>
                     <DatePicker
                         name="from"
-                        selected={this.state.from}
+                        selected={this.state.workExperience.from}
                         onChange={this.handleChangeDateFrom}
                         dateFormat="MM/yyyy"
                         showMonthYearPicker
@@ -94,20 +151,56 @@ class WorkExperience extends Component {
                     <label>To:</label>
                     <DatePicker
                         name="to"
-                        selected={this.state.to}
+                        selected={this.state.workExperience.to}
                         onChange={this.handleChangeDateTo}
                         dateFormat="MM/yyyy"
                         showMonthYearPicker
                         showFullMonthYearPicker
                     />
                     <label>Tasks:</label>
-                    <textarea name="tasks" value={this.state.tasks} onChange={this.handleChange}></textarea>
+                    <textarea name="tasks" value={this.state.workExperience.tasks} onChange={this.handleChange}></textarea>
 
-                    <div className="div-btn">
+                    <div className="div-btn2">
                         <button type="submit"><FaSave /> Add</button>
-                        <button type="button" onClick={this.handleEdit}><FaEdit /> Edit</button>
                     </div>
                 </form>
+
+                <h2>Work Experience List</h2>
+                <table className="content-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Job</th>
+                            <th>Company</th>
+                            <th>Location</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.props.work_experience_array.length === 0 ?
+                            <tr>
+                                <td colSpan="8" style={{ textAlign: "center", }}>There is no work experience yet!</td>
+                            </tr> :
+                            this.props.work_experience_array.map((item, index) => {
+                                return (
+                                    <tr key={item.id}>
+                                        <td>{index + 1}</td>
+                                        <td>{item.job_title}</td>
+                                        <td>{item.company_name}</td>
+                                        <td>{item.work_location}</td>
+                                        <td>{this.handleDate(item.from)}</td>
+                                        <td>{this.handleDate(item.to)}</td>
+                                        <td><button className="Edit-btn" onClick={() => this.handleEdit(item.id)}><FaEdit /></button></td>
+                                        <td><button className="Delete-btn" onClick={() => this.handleDelete(item.id)}><MdDeleteForever /></button></td>
+                                    </tr>
+                                );
+                            })
+                        }
+                    </tbody>
+                </table>
             </div>
         );
     }
@@ -115,23 +208,14 @@ class WorkExperience extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        job_title: state.workExperienceReducer.job_title,
-        company_name: state.workExperienceReducer.company_name,
-        work_location: state.workExperienceReducer.work_location,
-        from: state.workExperienceReducer.from,
-        to: state.workExperienceReducer.to,
-        tasks: state.workExperienceReducer.tasks,
+        work_experience_array: state.workExperienceReducer.work_experience,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        job_title_action: (job_title) => dispatch({type: 'JOBTITLE', job_title}),
-        company_name_action: (company_name) => dispatch({type: 'COMPANYNAME', company_name}),
-        work_location_action: (work_location) => dispatch({type: 'WORKLOCATION', work_location}),
-        from_action: (from) => dispatch({type: 'FROM', from}),
-        to_action: (to) => dispatch({type: 'TO', to}),
-        tasks_action: (tasks) => dispatch({type: 'TASKS', tasks}),
+        add_work_experience: (WE) => dispatch({ type: 'ADD_WORK_EXPERIENCE', WE }),
+        delete_work_experience: (id) => dispatch({ type: 'DELETE_WORK_EXPERIENCE', id }),
     }
 }
 

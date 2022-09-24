@@ -10,12 +10,7 @@ const initialState = {
 
     statement: '',
 
-    job_title: '',
-    company_name: '',
-    work_location: '',
-    from: '',
-    to: '',
-    tasks: '',
+    work_experience: [],
 
     degree_name: '',
     university_name: '',
@@ -38,12 +33,8 @@ const LINKEDINURL = 'LINKEDINURL';
 
 const STATEMENT = 'STATEMENT';
 
-const JOBTITLE = 'JOBTITLE';
-const COMPANYNAME = 'COMPANYNAME';
-const WORKLOCATION = 'WORKLOCATION';
-const FROM = 'FROM';
-const TO = 'TO';
-const TASKS = 'TASKS';
+const ADD_WORK_EXPERIENCE = 'ADD_WORK_EXPERIENCE';
+const DELETE_WORK_EXPERIENCE = 'DELETE_WORK_EXPERIENCE';
 
 const DEGREENAME = 'DEGREENAME';
 const UNIVERSITYNAME = 'UNIVERSITYNAME';
@@ -110,35 +101,15 @@ const summaryStatementReducer = (state = initialState, action) => {
 
 const workExperienceReducer = (state = initialState, action) => {
     switch (action.type) {
-        case JOBTITLE:
+        case ADD_WORK_EXPERIENCE:
             return {
                 ...state,
-                job_title: action.job_title,
+                work_experience: state.work_experience.concat(action.WE),
             }
-        case COMPANYNAME:
+        case DELETE_WORK_EXPERIENCE:
             return {
                 ...state,
-                company_name: action.company_name,
-            }
-        case WORKLOCATION:
-            return {
-                ...state,
-                work_location: action.work_location,
-            }
-        case FROM:
-            return {
-                ...state,
-                from: action.from,
-            }
-        case TO:
-            return {
-                ...state,
-                to: action.to,
-            }
-        case TASKS:
-            return {
-                ...state,
-                tasks: action.tasks,
+                work_experience: state.work_experience.filter(item => item.id !== action.id),
             }
         default:
             return state;
