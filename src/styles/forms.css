@@ -43,6 +43,13 @@ textarea {
     grid-column-gap: 15px;
 }
 
+.div-btn2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 40px;
+    margin: 10px 0;
+}
+
 button {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 19px;
@@ -68,4 +75,53 @@ button[type="button"] {
 button[type="submit"]:hover, button[type="button"]:hover {
     background-color: #c0392b;
     color: #ecf0f1;
+}
+
+.content-table {
+    border-collapse: collapse;
+    margin: 15px 0;
+    width: 100%;
+}
+
+.content-table thead tr {
+    background-color: #34495e;
+    color: #fff;
+    text-align: left;
+    font-weight: bold;
+}
+
+.content-table th, .content-table td {
+    padding: 12px 15px;
+}
+
+.content-table tbody tr {
+    border-bottom: 1px soli #000;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+    background-color: #7f8c8d;
+}
+
+.content-table tbody tr:last-of-type {
+    border-bottom: 4px solid #34495e;
+}
+
+.Edit-btn {
+    background-color: rgba(0,0,0,0);
+    font-size: 30px;
+    color: #e67e22;
+}
+
+.Edit-btn:hover {
+    color: #2c3e50;
+}
+
+.Delete-btn {
+    background-color: rgba(0,0,0,0);
+    font-size: 30px;
+    color: #c23616;
+}
+
+.Delete-btn:hover {
+    color: #2c3e50;
 }

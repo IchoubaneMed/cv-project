@@ -3,6 +3,7 @@ import Header from './components/Header'
 import "./styles/global.css"
 import Resume from './components/Resume';
 
+
 function App() {
   return (
     <div className="cv-wrapper">

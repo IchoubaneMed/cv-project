@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../styles/resume.css';
 import { RiStarSFill, RiStarSLine } from "react-icons/ri";
-import { GoDash } from "react-icons/go";
+//import { GoDash } from "react-icons/go";
 import ReactToPrint from 'react-to-print';
 import { AiFillPrinter } from "react-icons/ai";
 
@@ -115,8 +115,14 @@ class Resume extends Component {
 
                     <div className="resume-certifications">
                         <h3 className="underline">Certifications</h3>
-
+                        {/*
                         <p className="flex"><GoDash />{this.props.title}, <span className="italic">{this.handleDate(this.props.date)}</span></p>
+                        */}
+                        <ul>
+                            {this.props.certifications.map(el => {
+                                return <li key={el.id}>{el.title}, <span className="italic">{this.handleDate(el.date)}</span></li>
+                            })}
+                        </ul>
 
                     </div>
                 </div>
@@ -152,8 +158,9 @@ const mapStateToProps = (state) => {
         advanced: state.skillsReducer.advanced,
         familiar: state.skillsReducer.familiar,
 
-        title: state.certificationsReducer.title,
-        date: state.certificationsReducer.date,
+        //title: state.certificationsReducer.title,
+        //date: state.certificationsReducer.date,
+        certifications: state.certificationsReducer.certifications,
     }
 }
 

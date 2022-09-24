@@ -26,8 +26,7 @@ const initialState = {
     advanced: '',
     familiar: '',
 
-    title: '',
-    date: '',
+    certifications: [],
 }
 
 const FULLNAME = 'FULLNAME';
@@ -55,8 +54,10 @@ const EXPERT = 'EXPERT';
 const ADVANCED = 'ADVANCED';
 const FAMILIER = 'FAMILIER';
 
-const TITLE = 'TITLE';
-const DATE = 'DATE';
+//const TITLE = 'TITLE';
+//const DATE = 'DATE';
+const CERTIFICATIONS = 'CERTIFICATIONS';
+const DELETECERTIFICATION = 'DELETECERTIFICATION';
 
 const contactInformationReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -195,15 +196,15 @@ const skillsReducer = (state = initialState, action) => {
 
 const certificationsReducer = (state = initialState, action) => {
     switch(action.type) {
-        case TITLE:
+        case CERTIFICATIONS:
             return {
                 ...state,
-                title: action.title,
+                certifications: state.certifications.concat(action.certifications),
             }
-        case DATE:
+        case DELETECERTIFICATION:
             return {
                 ...state,
-                date: action.date,
+                certifications: state.certifications.filter(item => item.id !== action.id)
             }
         default:
             return state;
