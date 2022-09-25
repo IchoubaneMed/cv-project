@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../styles/resume.css';
 import { RiStarSFill, RiStarSLine } from "react-icons/ri";
-//import { GoDash } from "react-icons/go";
+import { GoDash } from "react-icons/go";
 import ReactToPrint from 'react-to-print';
 import { AiFillPrinter } from "react-icons/ai";
 
@@ -80,12 +80,12 @@ class Resume extends Component {
                         </div>
                     </div>
 
-                    <div className="resume-summaryState">
+                    {this.props.statement.length !== 0 && <div className="resume-summaryState">
                         <h3 className="underline">Summary Statement</h3>
                         <p>{this.props.statement}</p>
-                    </div>
+                    </div>}
 
-                    <div className="resume-workExperience">
+                    {this.props.work_experience.length !== 0 && <div className="resume-workExperience">
                         <h3 className="underline">Work Experience</h3>
                         {this.props.work_experience.map(item => {
                             return (
@@ -97,9 +97,9 @@ class Resume extends Component {
                                 </div>
                             );
                         })}
-                    </div>
+                    </div>}
 
-                    <div className="resume-education">
+                    {this.props.education.length !== 0 && <div className="resume-education">
                         <h3 className="underline">Education</h3>
                         {this.props.education.map(item => {
                             return (
@@ -110,33 +110,32 @@ class Resume extends Component {
                                 </div>
                             );
                         })}
-                    </div>
+                    </div>}
 
-                    <div className="resume-skills">
+                    {(this.props.expert.length !== 0 || this.props.advanced.length !== 0 || this.props.familiar.length !== 0) && <div className="resume-skills">
                         <h3 className="underline">Skills</h3>
-                        <div>
+                        {this.props.expert.length !== 0 && <div>
                             <h4 className="inline flex">Expert ( <RiStarSFill /><RiStarSFill /><RiStarSFill /><RiStarSFill /><RiStarSFill /> ): </h4><p className="inline">{this.props.expert}</p>
-                        </div>
-                        <div>
+                        </div>}
+                        {this.props.advanced.length !== 0 && <div>
                             <h4 className="inline flex">Advanced ( <RiStarSFill /><RiStarSFill /><RiStarSFill /><RiStarSFill /><RiStarSLine /> ): </h4><p className="inline">{this.props.advanced}</p>
-                        </div>
-                        <div>
+                        </div>}
+                        {this.props.familiar.length !== 0 && <div>
                             <h4 className="inline flex">Familiar ( <RiStarSFill /><RiStarSFill /><RiStarSFill /><RiStarSLine /><RiStarSLine /> ): </h4><p className="inline">{this.props.familiar}</p>
-                        </div>
-                    </div>
-
-                    <div className="resume-certifications">
+                        </div>}
+                    </div>}
+                    
+                    {this.props.certifications.length !== 0 && <div className="resume-certifications">
                         <h3 className="underline">Certifications</h3>
-                        {/*
-                        <p className="flex"><GoDash />{this.props.title}, <span className="italic">{this.handleDate(this.props.date)}</span></p>
-                        */}
-                        <ul>
-                            {this.props.certifications.map(el => {
-                                return <li key={el.id}>{el.title}, <span className="italic">{this.handleDate(el.date)}</span></li>
-                            })}
-                        </ul>
-
-                    </div>
+                        {this.props.certifications.map(item => {
+                            return (
+                                <div>
+                                    <p key={item.id} className="flex"><GoDash />{item.title}, <span className="italic">{this.handleDate(item.date)}</span></p>
+                                    <br />
+                                </div>
+                            );
+                        })}
+                    </div>}
                 </div>
             </div>
         );
