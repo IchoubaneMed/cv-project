@@ -1,18 +1,22 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { FaSave, FaEdit, FaUniversity } from "react-icons/fa";
-
+import { MdDeleteForever } from "react-icons/md";
+import uniqid from 'uniqid';
 import { connect } from 'react-redux';
 
 class Education extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            degree_name: '',
-            university_name: '',
-            from: new Date(),
-            to: new Date(),
+            education: {
+                id: uniqid(),
+                degree_name: '',
+                university_name: '',
+                from: new Date(),
+                to: new Date(),
+            },
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -20,81 +24,168 @@ class Education extends Component {
         this.handleChangeDateTo = this.handleChangeDateTo.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
+        this.handleDate = this.handleDate.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     handleChange(event) {
         this.setState({
-            [event.target.name]: event.target.value,
+            education: {
+                ...this.state.education,
+                [event.target.name]: event.target.value,
+                id: uniqid(),
+            },
         });
     }
 
     handleChangeDateFrom(date) {
         this.setState({
-            from: date,
+            education: {
+                ...this.state.education,
+                from: date,
+            },
         });
     };
 
     handleChangeDateTo(date) {
         this.setState({
-            to: date,
+            education: {
+                ...this.state.education,
+                to: date,
+            },
         });
     };
 
     handleSubmit(event) {
         event.preventDefault();
-        this.props.degree_name_action(this.state.degree_name);
-        this.props.university_name_action(this.state.university_name);
-        this.props.from_education_action(this.state.from.toString());
-        this.props.to_education_action(this.state.to.toString());
+        const edu = {
+            id: this.state.education.id,
+            degree_name: this.state.education.degree_name,
+            university_name: this.state.education.university_name,
+            from: this.state.education.from.toString(),
+            to: this.state.education.to.toString(),
+        }
         this.setState({
-            degree_name: '',
-            university_name: '',
-            from: new Date(),
-            to: new Date(),
+            education: {
+                id: uniqid(),
+                degree_name: '',
+                university_name: '',
+                from: new Date(),
+                to: new Date(),
+            },
         });
+        this.props.add_education(edu);
     }
 
-    handleEdit() {
+    handleEdit(id) {
+        const edu = this.props.education_array.filter(item => item.id === id);
         this.setState({
-            degree_name: this.props.degree_name,
-            university_name: this.props.university_name,
-            from: this.props.from_education === '' ? new Date() : Date.parse(this.props.from_education),
-            to: this.props.to_education === '' ? new Date() : Date.parse(this.props.to_education),
+            education: {
+                id: edu[0].id,
+                degree_name: edu[0].degree_name,
+                university_name: edu[0].university_name,
+                from: Date.parse(edu[0].from),
+                to: Date.parse(edu[0].to),
+            },
         });
+        this.props.delete_education(id);
+    }
+
+    handleDelete(id) {
+        this.props.delete_education(id);
+    }
+
+    handleDate(date = '') {
+        const months = {
+            Jan: 'January',
+            Feb: 'February',
+            Mar: 'March',
+            Apr: 'April',
+            May: 'May',
+            Jun: 'June',
+            Jul: 'July',
+            Aug: 'August',
+            Sep: 'September',
+            Oct: 'October',
+            Nov: 'November',
+            Dec: 'December',
+        }
+
+        const userDate = date.split(" ");
+
+        if (date === '') {
+            return "";
+        } else {
+            return `${months[userDate[1]]} ${userDate[3]}`;
+        }
     }
 
     render() {
-        return(
+        return (
             <div className="formSection">
                 <h1>Education <FaUniversity /></h1>
                 <form onSubmit={this.handleSubmit}>
                     <label htmlFor="degree">Degree</label>
-                    <input type="text" id="degree" name="degree_name" value={this.state.degree_name} onChange={this.handleChange}/>
+                    <input type="text" id="degree" name="degree_name" value={this.state.education.degree_name} onChange={this.handleChange} />
                     <label htmlFor="university">University</label>
-                    <input type="text" id="university" name="university_name" value={this.state.university_name} onChange={this.handleChange}/>
+                    <input type="text" id="university" name="university_name" value={this.state.education.university_name} onChange={this.handleChange} />
                     <label htmlFor="from">From</label>
-                    <DatePicker 
-                            name="from"
-                            selected={this.state.from}
-                            onChange={this.handleChangeDateFrom}
-                            dateFormat="MM/yyyy"
-                            showMonthYearPicker
-                            showFullMonthYearPicker
-                        />
+                    <DatePicker
+                        name="from"
+                        selected={this.state.education.from}
+                        onChange={this.handleChangeDateFrom}
+                        dateFormat="MM/yyyy"
+                        showMonthYearPicker
+                        showFullMonthYearPicker
+                    />
                     <label htmlFor="to">To</label>
-                    <DatePicker 
-                            name="to"
-                            selected={this.state.to}
-                            onChange={this.handleChangeDateTo}
-                            dateFormat="MM/yyyy"
-                            showMonthYearPicker
-                            showFullMonthYearPicker
-                        />
-                    <div className="div-btn">
+                    <DatePicker
+                        name="to"
+                        selected={this.state.education.to}
+                        onChange={this.handleChangeDateTo}
+                        dateFormat="MM/yyyy"
+                        showMonthYearPicker
+                        showFullMonthYearPicker
+                    />
+                    <div className="div-btn2">
                         <button type="submit"><FaSave /> Add</button>
-                        <button type="button" onClick={this.handleEdit}><FaEdit /> Edit</button>
                     </div>
                 </form>
+
+                <h2>Education List</h2>
+                <table className="content-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Degree</th>
+                            <th>University</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.props.education_array.length === 0 ?
+                            <tr>
+                                <td colSpan="7" style={{ textAlign: "center", }}>There is no education degree yet!</td>
+                            </tr> :
+                            this.props.education_array.map((item, index) => {
+                                return (
+                                    <tr key={item.id}>
+                                        <td>{index + 1}</td>
+                                        <td>{item.degree_name}</td>
+                                        <td>{item.university_name}</td>
+                                        <td>{this.handleDate(item.from)}</td>
+                                        <td>{this.handleDate(item.to)}</td>
+                                        <td><button className="Edit-btn" onClick={() => this.handleEdit(item.id)}><FaEdit /></button></td>
+                                        <td><button className="Delete-btn" onClick={() => this.handleDelete(item.id)}><MdDeleteForever /></button></td>
+                                    </tr>
+                                );
+                            })
+                        }
+                    </tbody>
+                </table>
             </div>
         );
     }
@@ -102,19 +193,14 @@ class Education extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        degree_name: state.educationReducer.degree_name,
-        university_name: state.educationReducer.university_name,
-        from_education: state.educationReducer.from_education,
-        to_education: state.educationReducer.to_education,
+        education_array: state.educationReducer.education,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        degree_name_action: (degree) => dispatch({type: 'DEGREENAME', degree}),
-        university_name_action: (university) => dispatch({type: 'UNIVERSITYNAME', university}),
-        from_education_action: (from_education) => dispatch({type: 'FROMEDUCATION', from_education}),
-        to_education_action: (to_education) => dispatch({type: 'TOEDUCATION', to_education}),
+        add_education: (edu) => dispatch({ type: 'ADD_EDUCATION', edu }),
+        delete_education: (id) => dispatch({ type: 'DELETE_EDUCATION', id }),
     }
 }
 

@@ -101,9 +101,15 @@ class Resume extends Component {
 
                     <div className="resume-education">
                         <h3 className="underline">Education</h3>
-                        <h4>{this.props.degree_name}</h4>
-                        <p>{this.props.university_name}</p>
-                        <p className="inline italic">{this.handleDate(this.props.from_education)}</p>-<p className="inline italic">{this.handleDate(this.props.to_education)}</p>
+                        {this.props.education.map(item => {
+                            return (
+                                <div key={item.id}>
+                                    <h4>{item.degree_name}</h4>
+                                    <p>{item.university_name}</p>
+                                    <p className="inline italic">{this.handleDate(item.from)}</p>-<p className="inline italic">{this.handleDate(item.to)}</p>
+                                </div>
+                            );
+                        })}
                     </div>
 
                     <div className="resume-skills">
@@ -150,10 +156,7 @@ const mapStateToProps = (state) => {
 
         work_experience: state.workExperienceReducer.work_experience,
 
-        degree_name: state.educationReducer.degree_name,
-        university_name: state.educationReducer.university_name,
-        from_education: state.educationReducer.from_education,
-        to_education: state.educationReducer.to_education,
+        education: state.educationReducer.education,
 
         expert: state.skillsReducer.expert,
         advanced: state.skillsReducer.advanced,

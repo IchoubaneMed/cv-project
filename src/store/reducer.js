@@ -12,10 +12,7 @@ const initialState = {
 
     work_experience: [],
 
-    degree_name: '',
-    university_name: '',
-    from_education: '',
-    to_education: '',
+    education: [],
 
     expert: '',
     advanced: '',
@@ -36,10 +33,8 @@ const STATEMENT = 'STATEMENT';
 const ADD_WORK_EXPERIENCE = 'ADD_WORK_EXPERIENCE';
 const DELETE_WORK_EXPERIENCE = 'DELETE_WORK_EXPERIENCE';
 
-const DEGREENAME = 'DEGREENAME';
-const UNIVERSITYNAME = 'UNIVERSITYNAME';
-const FROMEDUCATION = 'FROMEDUCATION';
-const TOEDUCATION = 'TOEDUCATION';
+const ADD_EDUCATION = 'ADD_EDUCATION';
+const DELETE_EDUCATION = 'DELETE_EDUCATION';
 
 const EXPERT = 'EXPERT';
 const ADVANCED = 'ADVANCED';
@@ -118,25 +113,15 @@ const workExperienceReducer = (state = initialState, action) => {
 
 const educationReducer = (state = initialState, action) => {
     switch (action.type) {
-        case DEGREENAME:
+        case ADD_EDUCATION:
             return {
                 ...state,
-                degree_name: action.degree,
+                education: state.education.concat(action.edu),
             }
-        case UNIVERSITYNAME:
+        case DELETE_EDUCATION:
             return {
                 ...state,
-                university_name: action.university,
-            }
-        case FROMEDUCATION:
-            return {
-                ...state,
-                from_education: action.from_education,
-            }
-        case TOEDUCATION:
-            return {
-                ...state,
-                to_education: action.to_education,
+                education: state.education.filter(item => item.id !== action.id),
             }
         default:
             return state;
