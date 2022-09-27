@@ -1,25 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { data } from './data';
 
-const initialState = {
-    fullName: '',
-    email: '',
-    phoneNumber: '',
-    website: '',
-    githubUrl: '',
-    linkedinUrl: '',
-
-    statement: '',
-
-    work_experience: [],
-
-    education: [],
-
-    expert: '',
-    advanced: '',
-    familiar: '',
-
-    certifications: [],
-}
+const initialState = data;
 
 const FULLNAME = 'FULLNAME';
 const EMAIL = 'EMAIL';
@@ -40,10 +22,11 @@ const EXPERT = 'EXPERT';
 const ADVANCED = 'ADVANCED';
 const FAMILIER = 'FAMILIER';
 
-//const TITLE = 'TITLE';
-//const DATE = 'DATE';
 const CERTIFICATIONS = 'CERTIFICATIONS';
 const DELETECERTIFICATION = 'DELETECERTIFICATION';
+
+const LOAD = 'LOAD';
+const CLEAR = 'CLEAR';
 
 const contactInformationReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -77,6 +60,26 @@ const contactInformationReducer = (state = initialState, action) => {
                 ...state,
                 linkedinUrl: action.linkedinUrl,
             }
+        case LOAD:
+            return {
+                ...state,
+                fullName: data.fullName,
+                email: data.email,
+                phoneNumber: data.phoneNumber,
+                website: data.website,
+                githubUrl: data.githubUrl,
+                linkedinUrl: data.linkedinUrl,
+            }
+        case CLEAR:
+            return {
+                ...state,
+                fullName: '',
+                email: '',
+                phoneNumber: '',
+                website: '',
+                githubUrl: '',
+                linkedinUrl: '',
+            }
         default:
             return state;
     }
@@ -88,6 +91,16 @@ const summaryStatementReducer = (state = initialState, action) => {
             return {
                 ...state,
                 statement: action.statement,
+            }
+        case LOAD:
+            return {
+                ...state,
+                statement: data.statement,
+            }
+        case CLEAR:
+            return {
+                ...state,
+                statement: '',
             }
         default:
             return state;
@@ -106,6 +119,16 @@ const workExperienceReducer = (state = initialState, action) => {
                 ...state,
                 work_experience: state.work_experience.filter(item => item.id !== action.id),
             }
+        case LOAD:
+            return {
+                ...state,
+                work_experience: data.work_experience,
+            }
+        case CLEAR:
+            return {
+                ...state,
+                work_experience: [],
+            }
         default:
             return state;
     }
@@ -122,6 +145,16 @@ const educationReducer = (state = initialState, action) => {
             return {
                 ...state,
                 education: state.education.filter(item => item.id !== action.id),
+            }
+        case LOAD:
+            return {
+                ...state,
+                education: data.education,
+            }
+        case CLEAR:
+            return {
+                ...state,
+                education: [],
             }
         default:
             return state;
@@ -145,13 +178,27 @@ const skillsReducer = (state = initialState, action) => {
                 ...state,
                 familiar: action.familiar,
             }
+        case LOAD:
+            return {
+                ...state,
+                expert: data.expert,
+                advanced: data.advanced,
+                familiar: data.familiar,
+            }
+        case CLEAR:
+            return {
+                ...state,
+                expert: '',
+                advanced: '',
+                familiar: '',
+            }
         default:
             return state;
     }
 }
 
 const certificationsReducer = (state = initialState, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case CERTIFICATIONS:
             return {
                 ...state,
@@ -161,6 +208,16 @@ const certificationsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 certifications: state.certifications.filter(item => item.id !== action.id)
+            }
+        case LOAD:
+            return {
+                ...state,
+                certifications: data.certifications,
+            }
+        case CLEAR:
+            return {
+                ...state,
+                certifications: [],
             }
         default:
             return state;

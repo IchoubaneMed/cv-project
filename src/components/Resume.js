@@ -4,13 +4,23 @@ import '../styles/resume.css';
 import { RiStarSFill, RiStarSLine } from "react-icons/ri";
 import { GoDash } from "react-icons/go";
 import ReactToPrint from 'react-to-print';
-import { AiFillPrinter } from "react-icons/ai";
+import { AiFillPrinter, AiOutlineCloudUpload, AiOutlineClear } from "react-icons/ai";
 
 
 class Resume extends Component {
     constructor(props) {
         super(props)
         this.handleDate = this.handleDate.bind(this);
+        this.load = this.load.bind(this);
+        this.clear = this.clear.bind(this);
+    }
+
+    load() {
+        this.props.load();
+    }
+
+    clear() {
+        this.props.clear();
     }
 
     handleDate(date = '') {
@@ -49,13 +59,15 @@ class Resume extends Component {
         const linkedin = this.props.linkedinUrl.split("").splice(12).join("");
         return (
             <div className="resume-grid">
-                <div className="resume-print">
+                <div className="resume-btns">
                     <ReactToPrint
                         trigger={() => {
                             return <button className="btnPrint"><AiFillPrinter /> Print</button>
                         }}
                         content={() => this.componentRef}
                     />
+                    <button className="btnLoad" onClick={this.load}><AiOutlineCloudUpload /> Load Example</button>
+                    <button className="btnClear" onClick={this.clear}><AiOutlineClear /> Clear</button>
                 </div>
 
                 <div className="resume-container" ref={el => (this.componentRef = el)}>
@@ -124,12 +136,12 @@ class Resume extends Component {
                             <h4 className="inline flex">Familiar ( <RiStarSFill /><RiStarSFill /><RiStarSFill /><RiStarSLine /><RiStarSLine /> ): </h4><p className="inline">{this.props.familiar}</p>
                         </div>}
                     </div>}
-                    
+
                     {this.props.certifications.length !== 0 && <div className="resume-certifications">
                         <h3 className="underline">Certifications</h3>
                         {this.props.certifications.map(item => {
                             return (
-                                <div>
+                                <div key={item.id}>
                                     <p key={item.id} className="flex"><GoDash />{item.title}, <span className="italic">{this.handleDate(item.date)}</span></p>
                                     <br />
                                 </div>
@@ -165,4 +177,11 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, null)(Resume);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        load: () => dispatch({ type: 'LOAD'}),
+        clear: () => dispatch({ type: 'CLEAR'}),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Resume);
