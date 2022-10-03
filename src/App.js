@@ -2,6 +2,7 @@ import Form from './components/Form'
 import Header from './components/Header'
 import "./styles/global.css"
 import Resume from './components/Resume';
+import Footer from './components/Footer'
 
 
 function App() {
@@ -15,6 +16,9 @@ function App() {
       </div>
       <div className="resume">
         <Resume />
+      </div>
+      <div className="cv-footer">
+        <Footer />
       </div>
     </div>
   );
