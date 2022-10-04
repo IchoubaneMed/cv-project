@@ -28,6 +28,9 @@ const DELETECERTIFICATION = 'DELETECERTIFICATION';
 const LOAD = 'LOAD';
 const CLEAR = 'CLEAR';
 
+const GODOWN = 'GODOWN';
+const GOUP = 'GOUP';
+
 const contactInformationReducer = (state = initialState, action) => {
     switch (action.type) {
         case FULLNAME:
@@ -218,6 +221,27 @@ const certificationsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 certifications: [],
+            }
+        case GODOWN:
+            const arr = [...state.certifications];
+
+            let temp = arr[action.index];
+
+            arr[action.index] = arr[action.index + 1];
+
+            arr[action.index + 1] = temp;
+            return {
+                ...state,
+                certifications: arr,
+            }
+        case GOUP:
+            const arr2 = [...state.certifications];
+
+            [arr2[action.index - 1], arr2[action.index]] = [arr2[action.index], arr2[action.index - 1]];
+
+            return {
+                ...state,
+                certifications: arr2,
             }
         default:
             return state;

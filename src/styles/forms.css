@@ -106,6 +106,28 @@ button[type="submit"]:hover, button[type="button"]:hover {
     border-bottom: 4px solid #34495e;
 }
 
+.Arrows {
+    display: flex; 
+    flex-direction: column-reverse; 
+    align-items: flex-start;
+}
+
+.Arrow-down-btn {
+    background-color: rgba(0,0,0,0);
+    font-size: 20px;
+    color: #2980b9;
+}
+
+.Arrow-up-btn {
+    background-color: rgba(0,0,0,0);
+    font-size: 20px;
+    color: #2980b9;
+}
+
+.Arrow-down-btn:hover, .Arrow-up-btn:hover {
+    color: #2c3e50;
+}
+
 .Edit-btn {
     background-color: rgba(0,0,0,0);
     font-size: 30px;

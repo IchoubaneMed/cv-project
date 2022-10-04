@@ -3,7 +3,8 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { FaSave, FaEdit } from "react-icons/fa";
 import { AiFillSafetyCertificate } from "react-icons/ai";
-import {MdDeleteForever} from "react-icons/md";
+import { MdDeleteForever } from "react-icons/md";
+import { BsFillArrowDownSquareFill, BsFillArrowUpSquareFill } from "react-icons/bs";
 import uniqid from 'uniqid';
 
 import { connect } from 'react-redux';
@@ -24,6 +25,8 @@ class Certifications extends Component {
         this.handleEdit = this.handleEdit.bind(this);
         this.handleDate = this.handleDate.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+        this.goDown = this.goDown.bind(this);
+        this.goUp = this.goUp.bind(this);
     }
 
     handleChange(event) {
@@ -78,6 +81,20 @@ class Certifications extends Component {
         this.props.deleteCertification(id);
     }
 
+    goDown(index) {
+        const arr = this.props.certificationsArray;
+        if(index < arr.length - 1 && arr.length > 1) {
+            this.props.go_down(index);
+        }
+
+    }
+
+    goUp(index) {
+        if(index > 0) {
+            this.props.go_up(index);
+        }
+    }
+
     handleDate(date = '') {
         const months = {
             Jan: 'January',
@@ -129,6 +146,7 @@ class Certifications extends Component {
                 <table className="content-table">
                     <thead>
                         <tr>
+                            <th>Order</th>
                             <th>#</th>
                             <th>Certification</th>
                             <th>Date</th>
@@ -139,11 +157,15 @@ class Certifications extends Component {
                     <tbody>
                         {this.props.certificationsArray.length === 0 ?
                             <tr>
-                                <td colSpan="5" style={{textAlign: "center",}}>There are no certifications yet!</td>
+                                <td colSpan="6" style={{ textAlign: "center", }}>There are no certifications yet!</td>
                             </tr> :
                             this.props.certificationsArray.map((item, index) => {
                                 return (
                                     <tr key={item.id}>
+                                        <td className="Arrows">
+                                            <button className="Arrow-down-btn" onClick={() => this.goDown(index)}><BsFillArrowDownSquareFill /></button>
+                                            <button className="Arrow-up-btn" onClick={() => this.goUp(index)}><BsFillArrowUpSquareFill /></button>
+                                        </td>
                                         <td>{index + 1}</td>
                                         <td>{item.title}</td>
                                         <td>{this.handleDate(item.date)}</td>
@@ -169,7 +191,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         certifications: (certifications) => dispatch({ type: 'CERTIFICATIONS', certifications }),
-        deleteCertification: (id) => dispatch({type: 'DELETECERTIFICATION', id})
+        deleteCertification: (id) => dispatch({ type: 'DELETECERTIFICATION', id }),
+        go_down: (index) => dispatch({ type: 'GODOWN', index }),
+        go_up: (index) => dispatch({type: 'GOUP', index}),
     }
 }
 
