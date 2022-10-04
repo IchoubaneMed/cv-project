@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { FaSave, FaEdit, FaUniversity } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
+import { BsFillArrowDownSquareFill, BsFillArrowUpSquareFill } from "react-icons/bs";
 import uniqid from 'uniqid';
 import { connect } from 'react-redux';
 
@@ -26,6 +27,8 @@ class Education extends Component {
         this.handleEdit = this.handleEdit.bind(this);
         this.handleDate = this.handleDate.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+        this.goDown = this.goDown.bind(this);
+        this.goUp = this.goUp.bind(this);
     }
 
     handleChange(event) {
@@ -95,6 +98,20 @@ class Education extends Component {
         this.props.delete_education(id);
     }
 
+    goDown(index) {
+        const arr = this.props.education_array;
+        if(index < arr.length - 1 && arr.length > 1) {
+            this.props.go_down(index);
+        }
+
+    }
+
+    goUp(index) {
+        if(index > 0) {
+            this.props.go_up(index);
+        }
+    }
+
     handleDate(date = '') {
         const months = {
             Jan: 'January',
@@ -156,6 +173,7 @@ class Education extends Component {
                 <table className="content-table">
                     <thead>
                         <tr>
+                            <th>Order</th>
                             <th>#</th>
                             <th>Degree</th>
                             <th>University</th>
@@ -168,11 +186,15 @@ class Education extends Component {
                     <tbody>
                         {this.props.education_array.length === 0 ?
                             <tr>
-                                <td colSpan="7" style={{ textAlign: "center", }}>There is no education degree yet!</td>
+                                <td colSpan="8" style={{ textAlign: "center", }}>There is no education degree yet!</td>
                             </tr> :
                             this.props.education_array.map((item, index) => {
                                 return (
                                     <tr key={item.id}>
+                                        <td className="Arrows">
+                                            <button className="Arrow-down-btn" onClick={() => this.goDown(index)}><BsFillArrowDownSquareFill /></button>
+                                            <button className="Arrow-up-btn" onClick={() => this.goUp(index)}><BsFillArrowUpSquareFill /></button>
+                                        </td>
                                         <td>{index + 1}</td>
                                         <td>{item.degree_name}</td>
                                         <td>{item.university_name}</td>
@@ -201,6 +223,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         add_education: (edu) => dispatch({ type: 'ADD_EDUCATION', edu }),
         delete_education: (id) => dispatch({ type: 'DELETE_EDUCATION', id }),
+        go_down: (index) => dispatch({ type: 'GO_DOWN_EDUCATION', index }),
+        go_up: (index) => dispatch({type: 'GO_UP_EDUCATION', index}),
     }
 }
 

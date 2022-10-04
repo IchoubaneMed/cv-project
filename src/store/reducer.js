@@ -17,6 +17,9 @@ const DELETE_WORK_EXPERIENCE = 'DELETE_WORK_EXPERIENCE';
 
 const ADD_EDUCATION = 'ADD_EDUCATION';
 const DELETE_EDUCATION = 'DELETE_EDUCATION';
+const GO_DOWN_EDUCATION = 'GO_DOWN_EDUCATION';
+const GO_UP_EDUCATION = 'GO_UP_EDUCATION';
+
 
 const EXPERT = 'EXPERT';
 const ADVANCED = 'ADVANCED';
@@ -159,6 +162,26 @@ const educationReducer = (state = initialState, action) => {
                 ...state,
                 education: [],
             }
+        case GO_DOWN_EDUCATION:
+            const arr = [...state.education];
+
+            let temp = arr[action.index];
+
+            arr[action.index] = arr[action.index + 1];
+
+            arr[action.index + 1] = temp;
+            return {
+                ...state,
+                education: arr,
+            }
+        case GO_UP_EDUCATION:
+            const arr2 = [...state.education];
+
+            [arr2[action.index - 1], arr2[action.index]] = [arr2[action.index], arr2[action.index - 1]];
+            return {
+                ...state,
+                education: arr2,
+            }
         default:
             return state;
     }
@@ -238,7 +261,6 @@ const certificationsReducer = (state = initialState, action) => {
             const arr2 = [...state.certifications];
 
             [arr2[action.index - 1], arr2[action.index]] = [arr2[action.index], arr2[action.index - 1]];
-
             return {
                 ...state,
                 certifications: arr2,
