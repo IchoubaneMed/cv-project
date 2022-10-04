@@ -4,6 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FaSave, FaEdit } from "react-icons/fa";
 import { MdWork } from "react-icons/md";
 import { MdDeleteForever } from "react-icons/md";
+import { BsFillArrowDownSquareFill, BsFillArrowUpSquareFill } from "react-icons/bs";
 import uniqid from 'uniqid';
 import { connect } from 'react-redux';
 
@@ -28,6 +29,8 @@ class WorkExperience extends Component {
         this.handleEdit = this.handleEdit.bind(this);
         this.handleDate = this.handleDate.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+        this.goDown = this.goDown.bind(this);
+        this.goUp = this.goUp.bind(this);
     };
 
     handleChange(event) {
@@ -103,6 +106,20 @@ class WorkExperience extends Component {
         this.props.delete_work_experience(id);
     }
 
+    goDown(index) {
+        const arr = this.props.work_experience_array;
+        if(index < arr.length - 1 && arr.length > 1) {
+            this.props.go_down(index);
+        }
+
+    }
+
+    goUp(index) {
+        if(index > 0) {
+            this.props.go_up(index);
+        }
+    }
+
     handleDate(date = '') {
         const months = {
             Jan: 'January',
@@ -169,10 +186,10 @@ class WorkExperience extends Component {
                 <table className="content-table">
                     <thead>
                         <tr>
+                            <th>Order</th>
                             <th>#</th>
                             <th>Job</th>
                             <th>Company</th>
-                            <th>Location</th>
                             <th>From</th>
                             <th>To</th>
                             <th>Edit</th>
@@ -187,10 +204,13 @@ class WorkExperience extends Component {
                             this.props.work_experience_array.map((item, index) => {
                                 return (
                                     <tr key={item.id}>
+                                        <td className="Arrows">
+                                            <button className="Arrow-down-btn" onClick={() => this.goDown(index)}><BsFillArrowDownSquareFill /></button>
+                                            <button className="Arrow-up-btn" onClick={() => this.goUp(index)}><BsFillArrowUpSquareFill /></button>
+                                        </td>
                                         <td>{index + 1}</td>
                                         <td>{item.job_title}</td>
                                         <td>{item.company_name}</td>
-                                        <td>{item.work_location}</td>
                                         <td>{this.handleDate(item.from)}</td>
                                         <td>{this.handleDate(item.to)}</td>
                                         <td><button className="Edit-btn" onClick={() => this.handleEdit(item.id)}><FaEdit /></button></td>
@@ -216,6 +236,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         add_work_experience: (WE) => dispatch({ type: 'ADD_WORK_EXPERIENCE', WE }),
         delete_work_experience: (id) => dispatch({ type: 'DELETE_WORK_EXPERIENCE', id }),
+        go_down: (index) => dispatch({ type: 'GO_DOWN_WORK_EXPERIENCE', index }),
+        go_up: (index) => dispatch({type: 'GO_UP_WORK_EXPERIENCE', index}),
     }
 }
 

@@ -14,6 +14,8 @@ const STATEMENT = 'STATEMENT';
 
 const ADD_WORK_EXPERIENCE = 'ADD_WORK_EXPERIENCE';
 const DELETE_WORK_EXPERIENCE = 'DELETE_WORK_EXPERIENCE';
+const GO_DOWN_WORK_EXPERIENCE = 'GO_DOWN_WORK_EXPERIENCE';
+const GO_UP_WORK_EXPERIENCE = 'GO_UP_WORK_EXPERIENCE';
 
 const ADD_EDUCATION = 'ADD_EDUCATION';
 const DELETE_EDUCATION = 'DELETE_EDUCATION';
@@ -134,6 +136,26 @@ const workExperienceReducer = (state = initialState, action) => {
             return {
                 ...state,
                 work_experience: [],
+            }
+        case GO_DOWN_WORK_EXPERIENCE:
+            const arr = [...state.work_experience];
+
+            let temp = arr[action.index];
+
+            arr[action.index] = arr[action.index + 1];
+
+            arr[action.index + 1] = temp;
+            return {
+                ...state,
+                work_experience: arr,
+            }
+        case GO_UP_WORK_EXPERIENCE:
+            const arr2 = [...state.work_experience];
+
+            [arr2[action.index - 1], arr2[action.index]] = [arr2[action.index], arr2[action.index - 1]];
+            return {
+                ...state,
+                work_experience: arr2,
             }
         default:
             return state;
