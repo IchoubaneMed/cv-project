@@ -151,11 +151,11 @@ class WorkExperience extends Component {
                 <h1>Work Experience <MdWork /></h1>
                 <form onSubmit={this.handleSubmit}>
                     <label htmlFor="jobTitle">Job title:</label>
-                    <input type="text" id="jobTitle" name="job_title" value={this.state.workExperience.job_title} onChange={this.handleChange} />
+                    <input type="text" id="jobTitle" placeholder="Enter job title" name="job_title" value={this.state.workExperience.job_title} onChange={this.handleChange} />
                     <label htmlFor="companyName">Company name:</label>
-                    <input type="text" id="companyName" name="company_name" value={this.state.workExperience.company_name} onChange={this.handleChange} />
+                    <input type="text" id="companyName" placeholder="Enter company name" name="company_name" value={this.state.workExperience.company_name} onChange={this.handleChange} />
                     <label htmlFor="workLocation">Work Location:</label>
-                    <input type="text" id="workLocation" name="work_location" value={this.state.workExperience.work_location} onChange={this.handleChange} />
+                    <input type="text" id="workLocation" placeholder="Enter work location" name="work_location" value={this.state.workExperience.work_location} onChange={this.handleChange} />
                     <label>From:</label>
                     <DatePicker
                         name="from"
