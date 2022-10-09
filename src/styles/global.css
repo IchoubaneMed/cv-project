@@ -81,3 +81,39 @@
 .github:hover {
     color: rgb(83, 83, 83);
 }
+
+@media screen and (max-width: 992px) {
+    .cv-wrapper {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 50px 1fr 1fr 50px;
+    }
+
+    .cv-header {
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+        font-size: 15px;
+    }
+
+    .cv-header span {
+        margin-left: 5px;
+    }
+
+    .cv-form {
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+        margin-left: 0;
+    }
+
+    .resume {
+        grid-column: 1 / 2;
+        grid-row: 3 / 4;
+        margin-right: 0px;
+    }
+
+    .cv-footer {
+        grid-column: 1 / 2;
+        grid-row: 4 / 5;
+        font-size: 15px;
+    }
+} 
