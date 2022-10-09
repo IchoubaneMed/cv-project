@@ -126,7 +126,7 @@ class Certifications extends Component {
                 <h1>Certifications <AiFillSafetyCertificate /></h1>
                 <form onSubmit={this.handleSubmit}>
                     <label htmlFor="title">Title</label>
-                    <input type="text" id="title" value={this.state.certification.title} onChange={this.handleChange} />
+                    <input type="text" id="title" placeholder="Enter certification title" value={this.state.certification.title} onChange={this.handleChange} />
                     <label htmlFor="date">Date</label>
                     <DatePicker
                         name="date"
