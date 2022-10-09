@@ -2,7 +2,7 @@ export const data = {
     fullName: 'Lorem Ipsum',
     email: 'Lorem_Ipsum@gmail.com',
     phoneNumber: '+16102458210',
-    website: '',
+    website: 'https://LoremIpsum.dev',
     githubUrl: 'https://github.com/LoremIpsum',
     linkedinUrl: 'https://www.linkedin.com/in/LoremIpsum/',
 
