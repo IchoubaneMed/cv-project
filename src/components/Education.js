@@ -143,9 +143,9 @@ class Education extends Component {
                 <h1>Education <FaUniversity /></h1>
                 <form onSubmit={this.handleSubmit}>
                     <label htmlFor="degree">Degree</label>
-                    <input type="text" id="degree" name="degree_name" value={this.state.education.degree_name} onChange={this.handleChange} />
+                    <input type="text" id="degree" placeholder="Enter degree name" name="degree_name" value={this.state.education.degree_name} onChange={this.handleChange} />
                     <label htmlFor="university">University</label>
-                    <input type="text" id="university" name="university_name" value={this.state.education.university_name} onChange={this.handleChange} />
+                    <input type="text" id="university" placeholder="Enter university name" name="university_name" value={this.state.education.university_name} onChange={this.handleChange} />
                     <label htmlFor="from">From</label>
                     <DatePicker
                         name="from"
